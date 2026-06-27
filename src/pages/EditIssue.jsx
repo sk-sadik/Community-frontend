@@ -56,7 +56,7 @@ const EditIssue = () => {
             longitude: issue.location?.longitude || '',
             image: null
           });
-          setImagePreview(`http://localhost:5050/${issue.image}`);
+          setImagePreview(`https://community-backend-pc5b.onrender.com/${issue.image}`);
         }
       } catch (err) {
         setError('Failed to load issue details.');

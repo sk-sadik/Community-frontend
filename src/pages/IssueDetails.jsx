@@ -113,7 +113,7 @@ const IssueDetails = () => {
           {/* Issue Header */}
           <div className="details-hero glass-panel">
             <img
-              src={`http://localhost:5050/${issue.image}`}
+              src={`https://community-backend-pc5b.onrender.com/${issue.image}`}
               alt={issue.title}
               className="details-image"
             />

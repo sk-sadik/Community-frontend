@@ -21,21 +21,32 @@ const IssueDetails = () => {
   }, [id]);
 
   const fetchIssueData = async () => {
-    setLoading(true);
-    try {
-      const [issueRes, commentsRes] = await Promise.all([
-        axios.get(`/api/issues/${id}`),
-        axios.get(`/api/comments/${id}`)
-      ]);
+  setLoading(true);
 
-      if (issueRes.data.success) setIssue(issueRes.data.data);
-      if (commentsRes.data.success) setComments(commentsRes.data.data);
-    } catch (err) {
-      setError('Failed to load issue details.');
-    } finally {
-      setLoading(false);
+  try {
+    const [issueRes, commentsRes] = await Promise.all([
+      axios.get(`/api/issues/${id}`),
+      axios.get(`/api/comments/${id}`)
+    ]);
+
+    if (issueRes.data.success) {
+      console.log("========== ISSUE DATA ==========");
+      console.log(issueRes.data.data);
+      console.log("IMAGE URL:", issueRes.data.data.image);
+
+      setIssue(issueRes.data.data);
     }
-  };
+
+    if (commentsRes.data.success) {
+      setComments(commentsRes.data.data);
+    }
+  } catch (err) {
+    console.error(err);
+    setError("Failed to load issue details.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -113,7 +124,7 @@ const IssueDetails = () => {
           {/* Issue Header */}
           <div className="details-hero glass-panel">
             <img
-              src={`https://community-backend-pc5b.onrender.com/${issue.image}`}
+              src={issue.image}
               alt={issue.title}
               className="details-image"
             />

@@ -25,14 +25,20 @@ const IssueCard = ({ issue }) => {
     });
   };
 
-  // Build backend image URL
-  const imageUrl = `https://community-backend-pc5b.onrender.com/${image}`;
-
+  // Cloudinary returns full URLs, use them directly
+  const imageUrl = image;
   return (
     <div className="issue-card glass-panel">
       <div className="issue-card-image-wrapper">
-        <img src={imageUrl} alt={title} className="issue-card-image" onerror="this.src='https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=400&q=80'" />
-        <div className="issue-card-badges">
+      <img
+  src={imageUrl}
+  alt={title}
+  className="issue-card-image"
+  onError={(e) => {
+    e.target.src =
+      "https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=400&q=80";
+  }}
+/>  <div className="issue-card-badges">
           <span className={`badge badge-priority ${priority.toLowerCase()}`}>
             {priority}
           </span>
